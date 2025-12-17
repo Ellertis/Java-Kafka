@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: Producer
+  kafka:
+#    producer:
+#      bootstrap-servers: localhost:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      properties:
+#        spring.json.add.type.headers: false
+    binder:
+      brokers: localhost:9092
+
+  cloud:
+  # function:
+  #  definition: uppercase
+  # function.web.path: /uppercase
+    function:
+      definition: sendPackageInfo;sendPackageStatus
+    stream:
+      function:
+        definition: sendPackageInfo;sendPackageStatus
+      bindings:
+        sendPackageInfo-out-0:
+          destination: config-topic
+          content-type: application/json
+        sendPackageStatus-out-0:
+          destination: config-topic2
+          content-type: text/plain
+      poller:
+        fixed-delay: 5000
