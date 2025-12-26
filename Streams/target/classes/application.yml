@@ -1,0 +1,19 @@
+server:
+  port: 9090
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    streams:
+      application-id: streams-app
+      properties:
+        default:
+          key:
+            serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          value:
+            serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+
+logging:
+  level:
+    org.apache.kafka.streams: INFO
+    org.springframework.kafka: INFO
